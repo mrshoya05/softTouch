@@ -21,4 +21,11 @@ export const signupUser = async (userData) => {
   return response.data;
 };
 
+
+//get profile 
+
+export const getProfile = async () => {
+  const response = await axiosInstance.get('/profile');
+  return response.data;
+};
 export default axiosInstance;

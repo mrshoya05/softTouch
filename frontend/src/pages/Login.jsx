@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import axios from "../services/axios"; // Ensure you have the axios instance set up correctly.
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const nevigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,7 +21,7 @@ const Login = () => {
       // Handle successful login
       console.log("Login successful:", response.data);
       localStorage.setItem("token", response.data.token); // Save token for authentication
-      window.location.href = "/dashboard"; // Redirect to dashboard or another page
+      nevigate('/dashboard');
     } catch (err) {
       // Handle errors
       setError(err.response?.data?.message || "An error occurred. Please try again.");

@@ -20,6 +20,7 @@ connectDB();
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/users", require("./routes/authRoutes"));
+app.use("/api", require('./routes/profileUpdateRoutes'));
 
 // Error Handling Middleware (optional)
 app.use((err, req, res, next) => {

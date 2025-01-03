@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./utils/ProtectedRoutes";
+import ProfilePage from "./pages/ProfilePage";
+
 
 function App() {
   return (
@@ -18,6 +20,11 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <ProfilePage/>
+          </ProtectedRoute>
+        } />
       </Routes>
     </Router>
   );

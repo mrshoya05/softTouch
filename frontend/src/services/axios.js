@@ -1,19 +1,24 @@
-import axios from "axios";
+import axios from 'axios';
 
-const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:3030/api",
+const API_URL = 'http://localhost:3030/api'; // Update your backend API URL
+
+const axiosInstance = axios.create({
+  baseURL: API_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
-// Add a request interceptor for adding the token
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Login user
+export const loginUser = async (email, password) => {
+  const response = await axiosInstance.post('/auth/login', { email, password });
+  return response.data;
+};
 
-export default apiClient;
+// Signup user
+export const signupUser = async (userData) => {
+  const response = await axiosInstance.post('/auth/signup', userData);
+  return response.data;
+};
+
+export default axiosInstance;

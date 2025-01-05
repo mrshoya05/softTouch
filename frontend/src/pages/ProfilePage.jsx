@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../services/axios";
+
+import {getProfile, updateProfile} from "../services/axios";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({
@@ -8,6 +9,7 @@ const ProfilePage = () => {
     age: null,
     skinType: "",
   });
+  console.log(user);
   const [isEditing, setIsEditing] = useState(false);
   const [updatedUser, setUpdatedUser] = useState(user);
   const [error, setError] = useState("");
@@ -16,9 +18,11 @@ const ProfilePage = () => {
     // Fetch the logged-in user's data from the backend
     const fetchUserData = async () => {
       try {
-        const response = await axiosInstance.get("/profile");
-        setUser(response.data);
-        setUpdatedUser(response.data);
+        const response = await getProfile();
+        
+        
+        setUser(response);
+        setUpdatedUser(response);
       } catch (err) {
         setError("Failed to fetch user data. Please try again.");
         console.error("Error fetching user data:", err);
@@ -35,8 +39,10 @@ const ProfilePage = () => {
   const handleEditToggle = async () => {
     if (isEditing) {
       try {
-        const response = await axiosInstance.put("/profile", updatedUser);
-        setUser(response.data);
+        const response = await updateProfile(updatedUser);
+        console.log(response);
+        
+        setUser(response);
         setError(""); // Clear any previous errors
       } catch (err) {
         setError("Failed to update user data. Please try again.");
@@ -64,13 +70,13 @@ const ProfilePage = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           ) : (
-            <p className="text-gray-800">{user.name}</p>
+            <p className="text-gray-800">{user?.name}</p>
           )}
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Email</label>
-          <p className="text-gray-800">{user.email}</p>
+          <p className="text-gray-800">{user?.email}</p>
         </div>
 
         <div className="mb-4">
@@ -84,7 +90,7 @@ const ProfilePage = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           ) : (
-            <p className="text-gray-800">{user.age}</p>
+            <p className="text-gray-800">{user?.age}</p>
           )}
         </div>
 
@@ -105,7 +111,7 @@ const ProfilePage = () => {
               <option value="Sensitive">Sensitive</option>
             </select>
           ) : (
-            <p className="text-gray-800">{user.skinType}</p>
+            <p className="text-gray-800">{user?.skinType}</p>
           )}
         </div>
 

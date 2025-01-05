@@ -4,7 +4,7 @@ const {protect} = require("../middlewares/authMiddleware"); // Assuming JWT auth
 
 const router = express.Router();
 
-router.get("/profile", protect, getUserProfile);
-router.put("/profile", protect, updateUserProfile);
+router.get("/profile", protect(), getUserProfile);
+router.put("/profile", protect(), updateUserProfile);
 
 module.exports = router;

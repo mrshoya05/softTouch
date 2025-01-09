@@ -1,30 +1,31 @@
 import React, { useState } from "react";
-import axios from "../services/axios"; // Ensure you have the axios instance set up correctly.
+import axios from "../services/axios"; // Ensure the axios instance is configured.
 import { useNavigate } from "react-router-dom";
-
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const nevigate = useNavigate();
+  const navigate = useNavigate(); // Fixed typo here
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError("");
 
     try {
-      // Make a POST request to the login endpoint
+      // API call to login endpoint
       const response = await axios.post("/auth/login", { email, password });
 
-      // Handle successful login
-      console.log("Login successful:", response.data);
-      localStorage.setItem("token", response.data.token); // Save token for authentication
-      nevigate('/dashboard');
+      // Save token to localStorage
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+
+      // Redirect to dashboard
+      navigate("/dashboard");
     } catch (err) {
-      // Handle errors
-      setError(err.response?.data?.message || "An error occurred. Please try again.");
+      setError(err.response?.data?.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }

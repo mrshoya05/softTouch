@@ -5,28 +5,31 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./utils/ProtectedRoutes";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./layout/Layout";
+import { AuthProvider } from "./utils/AuthContext";
 
-
-function App() { 
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />} >
-          <Route  element={<Login />} />
-        </Route>
-        <Route path="/register" element={<Layout />} >
-          <Route  element={<Register />} />
-        </Route>
-        <Route  element={<Layout />} >
-          <Route path="/dashboard"
-            element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        </Route>
-        <Route  element={<Layout />} >
-          <Route path="/profile"  element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-        </Route>
-
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />} >
+            <Route index element={<div>Welcome to the Skincare Dashboard</div>} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+          </Route>
+          <Route element={<Layout />}>
+            <Route
+              path="dashboard"
+              element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
+            />
+            <Route
+              path="profile"
+              element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
+            />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 

@@ -17,8 +17,6 @@ const Login = () => {
 
     try {
       const response = await login(email, password);  // Call the login function from context
-      console.log("Login response:", response);  // Debug log to check the response
-
       if (response.success) {
         navigate("/dashboard"); // Redirect to the dashboard if login is successful
       } else {

@@ -5,6 +5,7 @@ import { useAuth } from "../utils/AuthContext";
 const Header = () => {
   const { auth, logout } = useAuth();
 
+
   return (
     <header className="bg-white shadow">
       <div className="container mx-auto flex items-center justify-between p-6">
@@ -72,18 +73,3 @@ const Header = () => {
 };
 
 export default Header;
-   
-
-
-
-//And wo use 15 saal bada h
-// int count = 0;
-      
-// for(int i =0; i<nums.size(); i++){
-//     if(nums[i]  != 0){
-//         nums[count++] = nums[i];
-//     }
-// }
-// while(count<nums.size()){
-//     nums[count++] =0;
-// }

@@ -26,22 +26,33 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
- //s
-    // Find user by email
+
+    // Find the user by email
     const user = await User.findOne({ email });
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    // Check password
+    // Check if the password matches the stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
-    // Generate token
-    const token = jwt.sign({ id: user._id, role: user.role, name: user.name }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user._id, role: user.role, name: user.name },
+      process.env.JWT_SECRET, // Ensure JWT_SECRET is properly set
+      { expiresIn: "1h" }
+    );
 
+    // Log the token for debugging purposes (ensure it's valid)
+
+    // Send the token in the response
     res.status(200).json({ token });
+
   } catch (error) {
+   
     res.status(500).json({ message: error.message });
   }
 };

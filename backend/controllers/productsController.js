@@ -37,7 +37,7 @@ const getProductById = async (req, res) => {
                 brand,
                 category,
                 countInStock,
-      
+                user: req.user._id
               
             });
             const createdProduct = await product.save();

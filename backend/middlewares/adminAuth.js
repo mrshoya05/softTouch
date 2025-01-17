@@ -11,14 +11,12 @@ const adminAuth = async (req, res, next) => {
         const token = authHeader.replace("Bearer ", "");
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        console.log("Decoded token:", decoded);
 
         if (!decoded.id) {
             return res.status(403).send({ error: "Invalid token, no user ID found" });
         }
 
         const user = await User.findOne({ _id: decoded.id, role: "Admin" });
-        console.log("Queried user:", user);
 
         if (!user) {
             return res.status(403).send({ error: "You are not authorized to access this resource" });

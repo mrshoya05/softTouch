@@ -93,19 +93,27 @@ const getProductById = async (req, res) => {
     };
     
     
-const deleteProduct = async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (product) {
-            await product.remove();
-            res.json({ message: 'Product removed' });
-        } else {
-            res.status(404).json({ message: 'Product not found' });
+    const deleteProduct = async (req, res) => {
+        try {
+            const productId = req.params.id || req.query.id;
+        
+            // Check if productId is a valid ObjectId
+            if (!mongoose.Types.ObjectId.isValid(productId)) {
+                return res.status(400).json({ message: 'Invalid Product ID format' });
+            }
+    
+            const product = await Product.findByIdAndDelete(productId);
+            
+            if (product) {
+                res.json({ message: 'Product removed' });
+            } else {
+                res.status(404).json({ message: 'Product not found' });
+            }
+        } catch (error) {
+            console.error('Error deleting product:', error.message);
+            res.status(500).json({ message: 'Server error', error: error.message });
         }
-    } catch (error) {
-        console.error('Error deleting product:', error.message);
-        res.status(500).json({ message: 'Server error', error: error.message });
-    }
     };
+    ;
 
 module.exports = { getAllProducts, getProductById, createProduct, updateProduct, deleteProduct };

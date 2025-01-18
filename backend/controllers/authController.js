@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
     // Log the token for debugging purposes (ensure it's valid)
 
     // Send the token in the response
-    res.status(200).json({ token });
+    res.status(200).json({ token,  role: user.role });
 
   } catch (error) {
    

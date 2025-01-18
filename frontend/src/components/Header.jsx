@@ -1,65 +1,115 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../utils/AuthContext";
+import { FaUserCircle, FaBell } from "react-icons/fa"; // Example icons from react-icons
 
 const Header = () => {
-  const { auth, logout } = useAuth();
-
+  const { auth, role, logout } = useAuth();  // Destructure both auth and role from the context
 
   return (
-    <header className="bg-white shadow">
+    <header className="bg-white shadow-md">
       <div className="container mx-auto flex items-center justify-between p-6">
-        <h1 className="text-2xl font-bold text-gray-800">Skincare Dashboard</h1>
+        {/* Logo */}
+        <h1 className="text-2xl font-semibold text-gray-800">Skincare Dashboard</h1>
+
+        {/* Navigation Bar */}
         <nav>
-          <ul className="flex items-center space-x-4">
+          <ul className="flex items-center space-x-6">
+            {/* Home Link */}
             <li>
               <Link
                 to="/"
-                className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
+                className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
               >
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                to="/about"
-                className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
-              >
-                About
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
-              >
-                Contact
-              </Link>
-            </li>
-            {auth ? (
+
+            {/* Conditional Links Based on Role */}
+            {role === "admin" && (
               <>
                 <li>
                   <Link
+                    to="/menu"
+                    className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
+                  >
+                    Menu
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     to="/dashboard"
-                    className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
+                    className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
                   >
                     Dashboard
                   </Link>
                 </li>
+              </>
+            )}
+
+            {role === "user" && (
+              <>
                 <li>
-                  <button
-                    onClick={logout}
-                    className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg hover:bg-red-600"
+                  <Link
+                    to="/about"
+                    className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
                   >
-                    Logout
-                  </button>
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
+                  >
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/doctor"
+                    className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
+                  >
+                    Doctor
+                  </Link>
                 </li>
               </>
+            )}
+
+            {role === "consultant" && (
+              <li>
+                <Link
+                  to="/request"
+                  className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
+                >
+                  Request
+                </Link>
+              </li>
+            )}
+
+            {/* Profile and Notification Icons */}
+            {auth && (
+              <li className="flex items-center space-x-4">
+                <FaBell className="text-xl text-gray-700 hover:text-gray-900 cursor-pointer" />
+                <FaUserCircle className="text-xl text-gray-700 hover:text-gray-900 cursor-pointer" />
+              </li>
+            )}
+
+            {/* Logout Button */}
+            {auth ? (
+              <li>
+                <button
+                  onClick={logout}
+                  className="text-lg text-white bg-red-600 hover:bg-red-700 py-2 px-4 rounded-md transition duration-200"
+                >
+                  Logout
+                </button>
+              </li>
             ) : (
               <li>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-lg hover:bg-gray-300"
+                  className="text-lg text-gray-700 hover:text-gray-900 transition duration-200"
                 >
                   Login
                 </Link>

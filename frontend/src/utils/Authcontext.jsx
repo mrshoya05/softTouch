@@ -1,50 +1,60 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { loginUser } from "../services/axios";
+import { loginUser } from "../services/axios";  // Adjust this import as necessary
 
 // Create the context
 const AuthContext = createContext();
 
 // Provider component
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState(null);
+  const [auth, setAuth] = useState(null);  // Stores authentication (token)
+  const [role, setRole] = useState(null);  // Stores user role (e.g., 'admin')
 
   // Function to handle login
   const login = async (email, password) => {
     try {
-      // Make API call to login
-      const userData = await loginUser(email, password);
-      // If the user data contains a token, set auth and return success
-      if (userData && userData.token) {
-        setAuth(userData);
-        localStorage.setItem("token", userData.token); // Save token to localStorage
-        return { success: true, data: userData };
+      // Make API call to login and get user data (including role)
+      const response = await loginUser(email, password);
+
+      if (response && response.token && response.role) {
+        // Store token and role in state
+        setAuth(response.token);  
+        setRole(response.role);
+
+        // Store token and role in localStorage for persistence
+        localStorage.setItem("token", response.token);
+        localStorage.setItem("role", response.role);  // Store the role in localStorage
+
+        return { success: true, data: response };
       } else {
-      
-        return { success: false, error: "No token found in the response" };
+        return { success: false, error: "No token or role found in the response" };
       }
     } catch (error) {
-      // Log the error for debugging
-   
       return { success: false, error: error.message || "Login failed" };
     }
   };
 
   // Function to handle logout
   const logout = () => {
-    setAuth(null);
-    localStorage.removeItem("token"); // Clear token from localStorage
+    setAuth(null);  // Clear auth token
+    setRole(null);  // Clear role
+    localStorage.removeItem("token");  // Remove token from localStorage
+    localStorage.removeItem("role");   // Remove role from localStorage
   };
 
-  // Sync auth state with localStorage
+  // Sync auth and role states with localStorage
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {
-      setAuth({ token: storedToken });
+    const storedRole = localStorage.getItem("role");
+
+    // If there's a stored token and role, update the state
+    if (storedToken && storedRole) {
+      setAuth(storedToken);  // Set token to auth state
+      setRole(storedRole);    // Set role from localStorage
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider value={{ auth, role, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { loginUser } from "../services/axios";  // Adjust this import as necessary
-
+import Login from "../pages/Login";
 // Create the context
 const AuthContext = createContext();
 

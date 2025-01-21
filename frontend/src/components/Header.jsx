@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../utils/Authcontext";
+
 import { FaUserCircle, FaBell, FaBars, FaTimes } from "react-icons/fa";
+import { useAuth } from "../utils/Authcontext";
 
 const Header = () => {
   const { auth, role, logout } = useAuth();

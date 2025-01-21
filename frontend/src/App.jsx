@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./utils/ProtectedRoutes";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./layout/Layout";
-import { AuthProvider } from "./utils/AuthContext";
+import { AuthProvider } from "./utils/Authcontext";
 
 function App() {
   return (

@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./utils/ProtectedRoutes";
 import ProfilePage from "./pages/ProfilePage";
 import Layout from "./layout/Layout";
 import  {AuthProvider}  from "./utils/Authcontext";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
           <Route element={<Layout />}>
             <Route
               path="dashboard"
-              element={<ProtectedRoute><Dashboard /></ProtectedRoute>}
+              element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>}
             />
             <Route
               path="profile"

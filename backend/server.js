@@ -22,6 +22,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/users", require("./routes/authRoutes"));
 app.use("/api/users", require('./routes/profileUpdateRoutes'));
 app.use("/api/admin", require("./routes/adminRoutes"));
+app.use("/api/admin", require("./routes/adminDashboard"));
 
 // Error Handling Middleware (optional)
 app.use((err, req, res, next) => {

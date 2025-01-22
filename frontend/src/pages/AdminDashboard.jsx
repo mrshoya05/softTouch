@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import {
   FaUsers,
   FaUserMd,
@@ -15,6 +16,7 @@ const AdminDashboard = () => {
     switch (activeTab) {
       case 'users':
         return <UsersList />;
+        
       case 'doctors':
         return <DoctorsList />;
       case 'products':

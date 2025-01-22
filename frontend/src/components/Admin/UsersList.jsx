@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import { getUsers } from "../../services/axios";
 
 const UsersList = () => {
-    const users = [
-      { id: 1, name: 'John Doe', email: 'john.doe@example.com', role: 'Admin' },
-      { id: 2, name: 'Jane Smith', email: 'jane.smith@example.com', role: 'User' },
-      { id: 3, name: 'Emily Johnson', email: 'emily.johnson@example.com', role: 'Doctor' },
-    ];
+    
+    const [users, setUsers] = useState([]);
+
+    const fetchUsers = async () => {
+      try {
+        const response = await getUsers();
+        console.log(response);
+        setUsers(response);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    }
+    useEffect(() => {
+      fetchUsers();
+    }, []);
+
   
     return (
       <div>
@@ -22,9 +35,9 @@ const UsersList = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {users.map((user, index) => (
                 <tr key={user.id} className="border-b hover:bg-gray-100">
-                  <td className="p-4 text-gray-700">{user.id}</td>
+                  <td className="p-4 text-gray-700">{index+1}</td>
                   <td className="p-4 text-gray-700">{user.name}</td>
                   <td className="p-4 text-gray-700">{user.email}</td>
                   <td className="p-4 text-gray-700">{user.role}</td>

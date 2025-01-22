@@ -86,4 +86,15 @@ export const signupUser = async (userData) => {
   return response.data;
 };
 
+
+//here function for admin  dashboard functionalities. 
+
+// Fetch all users
+export const getUsers = async () => {
+  const response = await axiosInstance.get("/admin/getusers");
+  return response.data;
+};
+// Fetch user by ID
+
+
 export default axiosInstance;

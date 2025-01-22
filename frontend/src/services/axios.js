@@ -94,7 +94,12 @@ export const getUsers = async () => {
   const response = await axiosInstance.get("/admin/getusers");
   return response.data;
 };
-// Fetch user by ID
+// delete user using params id
+
+export const deleteUser = async (selectedUserId) => {
+  const response = await axiosInstance.delete(`/user/delete/${selectedUserId}`);
+  return response.data;
+};
 
 
 export default axiosInstance;

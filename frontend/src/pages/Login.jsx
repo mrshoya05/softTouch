@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import  {useAuth}  from "../utils/Authcontext";  // Import useAuth hook
+=======
+<<<<<<< HEAD
+import { useAuth } from "../utils/Authcontext";
+ // Import useAuth hook
+=======
+import  {useAuth}  from "../utils/Authcontext";  // Import useAuth hook
+>>>>>>> 66e0b2046d1ee0c4e553d3ad3f4b29a22a2c9688
+>>>>>>> 4f00bb29f9d186ec8e4b4116055b85d86c91429b
 
 const Login = () => {
   const [email, setEmail] = useState("");

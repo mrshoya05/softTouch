@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { loginUser } from "../services/axios";  // Adjust this import as necessary
+import Login from "../pages/Login";
 
 // Create the context
 const AuthContext = createContext();
@@ -38,7 +39,9 @@ export const AuthProvider = ({ children }) => {
     setAuth(null);  // Clear auth token
     setRole(null);  // Clear role
     localStorage.removeItem("token");  // Remove token from localStorage
-    localStorage.removeItem("role");   // Remove role from localStorage
+    localStorage.removeItem("role"); 
+ 
+    // Remove role from localStorage
   };
 
   // Sync auth and role states with localStorage

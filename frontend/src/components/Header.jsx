@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { FaUserCircle, FaBell, FaBars, FaTimes } from "react-icons/fa";
-import { useAuth } from "../utils/Authcontext";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../utils/AuthContext";
+import { FaUserCircle, FaBell } from "react-icons/fa";
 
 const Header = () => {
   const { auth, role, logout } = useAuth();
@@ -156,5 +155,6 @@ const Header = () => {
     </header>
   );
 };
-//hello world
+
 export default Header;
+//data update 

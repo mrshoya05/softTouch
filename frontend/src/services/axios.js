@@ -86,4 +86,20 @@ export const signupUser = async (userData) => {
   return response.data;
 };
 
+
+//here function for admin  dashboard functionalities. 
+
+// Fetch all users
+export const getUsers = async () => {
+  const response = await axiosInstance.get("/admin/getusers");
+  return response.data;
+};
+// delete user using params id
+
+export const deleteUser = async (selectedUserId) => {
+  const response = await axiosInstance.delete(`/user/delete/${selectedUserId}`);
+  return response.data;
+};
+
+
 export default axiosInstance;
